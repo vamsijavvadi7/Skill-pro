@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 // import 'dart:async';
 // import 'dart:convert';
 // import 'dart:html';
-import 'package:firstskillpro/screens/faculty/dashboard/extra.dart';
+import 'package:firstskillpro/screens/faculty/dashboard/competencydata.dart';
 import 'package:firstskillpro/styling.dart';
 
 
