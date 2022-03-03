@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 // import 'dart:convert';
 // import 'dart:html';
 import 'package:firstskillpro/screens/faculty/dashboard/extra.dart';
+import 'package:firstskillpro/styling.dart';
 
 
 Future<List<Competencies>> fetchCompetencies(http.Client client,int i) async {
@@ -30,7 +31,7 @@ Future<CompetenciesDataGridSource> getCompetenciesGridSource(int i) async {
   return CompetenciesDataGridSource(competencieslist);
 }
 
-var id = [4,14,24,34,44,84,94,104,114,124,134];
+var id = [4,14,24,34,44,84,94,104,114,124,134,4,24,34];
 class CompetenciesList extends StatelessWidget {
 
   TextEditingController textFieldController = TextEditingController();
@@ -56,7 +57,7 @@ class CompetenciesList extends StatelessWidget {
                 for(int i=0;i<id.length;i++)
                   ElevatedButton(
                       onPressed: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => Extra()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => Extra(key:ObjectKey("extraScreen"),i:id[i])));
                       },
                       child: Text('Competency ${id[i]}',
                           style: GoogleFonts.poppins(color: Colors.white))),
