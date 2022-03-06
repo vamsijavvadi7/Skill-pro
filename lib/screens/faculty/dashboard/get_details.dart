@@ -1,85 +1,95 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:math';
-import 'package:firstskillpro/screens/admins/sample_admin.dart';
-import '../../login/login_controller.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-Future<Role> getData(String email) async {
+Future<Role> fetchRole() async {
+
   final response = await http
-      .get(Uri.parse('https://api421.herokuapp.com/login/email/$email'));
+      .get(Uri.parse('https://api421.herokuapp.com/fdashboard/details/jyothiadabala321@gmail.com'));
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Role.fromJson(jsonDecode(response.body));
+
+    return Role.fromJson(json.decode(response.body));
+
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
+
     throw Exception('Failed to load album');
+
   }
 }
 
 class Role {
-  late String name;
- late String role;
 
-  Role({required this.name, required this.role});
+  final String name;
+  final String speciality;
 
-  Role.fromJson(Map<String, dynamic> json) {
-    name: json['name'] as String;
-    role: json['role'] as String;
-  }
+  Role({required this.name, required this.speciality});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['role'] = role;
-    return data;
+
+  factory Role.fromJson(Map<String, dynamic> json) {
+    return Role(
+      name: json['name'],
+      speciality: json['speciality'],
+    );
+
   }
 }
-var sp="";
+// var tmp = "";
 
-class DetailWidget extends StatefulWidget{
+class DetailWidget extends StatefulWidget {
+
+  const DetailWidget({Key? key}) : super(key: key);
+
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+
+  _MyAppState createState() => _MyAppState();
 }
+class _MyAppState extends State<DetailWidget> {
 
-class _LoginWidgetState extends State<DetailWidget> {
-  //String email = controller.googleAccount.value?.email ?? '';
-  late Future<Role> fetchRole;
+  late Future<Role> futureRole;
+  @override
+
+  void initState() {
+
+    super.initState();
+    futureRole = fetchRole();
+  }
 
   @override
+
   Widget build(BuildContext context) {
 
-    return Obx(() {
-      //controller.googleAccount.value!.email
-        fetchRole = getData("vamsijavvadi@gmail.com");
-        return FutureBuilder<Role>(
-            future: fetchRole,
+    return MaterialApp(
+
+      title: 'Fetching Data',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+
+      ),
+
+      home: Scaffold(
+
+        body: Center(
+          child: FutureBuilder<Role>(
+            future: futureRole,
             builder: (context, snapshot) {
-              sp = snapshot.data!.role;
               if (snapshot.hasData) {
-                return ListView(
-                    children: <Widget>[
-                      Text(snapshot.data!.name)
-                      ,
-                      Text(snapshot.data!.role),
-                    ]);
-
+                // tmp = snapshot.data!.name;
+                return Column(
+                    children:<Widget>[
+                      Text(snapshot.data!.name),
+                      Text(snapshot.data!.speciality),
+                    ]
+              );
               } else if (snapshot.hasError) {
-                return Scaffold(
-                    body: Center(child:(Text('${snapshot.error}'))),
-                    );
-
+                return Text("${snapshot.error}");
               }
-              else{
-                return Text("sdsdsds");
-              }
-            });
-      }
+              return CircularProgressIndicator();
+            },
+          ),
+        ),
+      ),
     );
   }
-  }
+}
