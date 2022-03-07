@@ -21,6 +21,7 @@ Future<List<Competencies>> fetchCompetencies(http.Client client,int i,String s) 
   final response = await client.get(Uri.parse(
       'https://api421.herokuapp.com/fdashboard/competencydetails/speciality/surgeon/competencyid/${i}'));
   // Use the compute function to run parsePhotos in a separate isolate.
+  // print(s);
   return parseCompetencies(response.body);
 
 }
@@ -44,7 +45,7 @@ class CompetenciesList extends StatelessWidget {
       child: Expanded(
         child: Column(
           children: <Widget>[
-            DetailWidget(),
+            DetailWidget(controller: controller,),
             const Divider(
               height: 20.00,
               thickness: 2.00,
@@ -56,7 +57,7 @@ class CompetenciesList extends StatelessWidget {
                   for(int i=0;i<id.length;i++)
                     ElevatedButton(
                         onPressed: (){
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => Extra(key:ObjectKey("extraScreen"),i:id[i],s:"Surgeon")));
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => Extra(key:ObjectKey("extraScreen"),i:id[i],s:'${tmp}')));
                         },
                         child: Text('Competency ${id[i]}',
                             style: GoogleFonts.poppins(color: Colors.white))),
