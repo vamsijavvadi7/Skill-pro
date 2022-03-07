@@ -38,7 +38,6 @@ class Role {
 
   }
 }
-var tmp = "";
 
 class DetailWidget extends StatefulWidget {
 
