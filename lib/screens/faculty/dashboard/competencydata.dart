@@ -70,7 +70,7 @@ List<GridColumn> getColumn() {
         padding: EdgeInsets.all(8),
         alignment: Alignment.center,
         child: Text(
-          'Name',
+            'Name',
             style: GoogleFonts.poppins(color: Colors.white)
         ),
       ),
@@ -82,7 +82,7 @@ List<GridColumn> getColumn() {
         padding: EdgeInsets.all(10),
         alignment: Alignment.center,
         child: Text(
-          'Self',
+            'Self',
             style: GoogleFonts.poppins(color: Colors.white)
         ),
       ),
@@ -95,7 +95,7 @@ List<GridColumn> getColumn() {
         alignment: Alignment.center,
         child: Text(
           'Faculty',
-            style: GoogleFonts.poppins(color: Colors.white),
+          style: GoogleFonts.poppins(color: Colors.white),
         ),
       ),
     ),
@@ -114,21 +114,21 @@ class CompetenciesDataGridSource extends DataGridSource {
     // TODO: implement buildRow
     return DataGridRowAdapter(color: Colors.white, cells: [
       TextButton(
-        onPressed:(){},
-        child:Text(
-        row.getCells()[0].value,
-        style: poppins,
-        )),
+          onPressed:(){},
+          child:Text(
+            row.getCells()[0].value,
+            style: poppins,
+          )),
       Text(
         row.getCells()[1].value,
         style: poppins,
         // textAlign: TextAlign.center,
       ),
       Text(
-          row.getCells()[2].value.toString(),
-          style: poppins,
+        row.getCells()[2].value.toString(),
+        style: poppins,
         textAlign: TextAlign.center,
-        ),
+      ),
       Text(
         row.getCells()[3].value.toString(),
         style: poppins,
@@ -154,39 +154,40 @@ class CompetenciesDataGridSource extends DataGridSource {
 class Extra extends StatelessWidget {
 
   int i;
-  Extra({required Key key,required this.i});
+  String s;
+  Extra({required Key key,required this.i,required this.s});
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar : AppBar(
-        title : Text("Competency - ${this.i}"),
-        backgroundColor: primaryColor,
-      ),
+        appBar : AppBar(
+          title : Text("Competency - ${this.i}"),
+          backgroundColor: primaryColor,
+        ),
         body :Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
                 child:Column(
                   children:<Widget>[
-                      FutureBuilder(
-                        future: getCompetenciesGridSource(this.i),
-                        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.hasData) {
-                            return Expanded(
-                                child: SfDataGrid(
-                                    columnWidthMode: ColumnWidthMode.fill,
-                                    allowSorting: true,
-                                    source: snapshot.data,
-                                    columns: getColumn()));
-                          } else {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        },
-                      ),
+                    FutureBuilder(
+                      future: getCompetenciesGridSource(this.i,this.s),
+                      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.hasData) {
+                          return Flexible(
+                              child: SfDataGrid(
+                                  columnWidthMode: ColumnWidthMode.fill,
+                                  allowSorting: true,
+                                  source: snapshot.data,
+                                  columns: getColumn()));
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ],
                 )),
           ],
