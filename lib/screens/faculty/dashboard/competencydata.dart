@@ -174,6 +174,7 @@ class Extra extends StatelessWidget {
                     FutureBuilder(
                       future: getCompetenciesGridSource(this.i,this.s),
                       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                        print(this.s+"hello");
                         if (snapshot.hasData) {
                           return Flexible(
                               child: SfDataGrid(
