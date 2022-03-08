@@ -14,13 +14,25 @@ import 'package:firstskillpro/screens/faculty/dashboard/competencydata.dart';
 import 'package:firstskillpro/styling.dart';
 import 'my_globals.dart' as globals;
 
-Future fetchIds()  async{
+Future<CompetencyId> fetchIds()  async{
   final response = await http.get(Uri.parse(
       'https://api421.herokuapp.com/fdashboard/competencydetails/${globals.tmp}'));
   final parsed = jsonDecode(response.body).cast<String, dynamic>();
   return parsed;
 }
 
+class CompetencyId {
+  final String competencyname;
+  final int competencyid;
+
+  CompetencyId({required this.competencyid, required this.competencyname});
+
+  factory CompetencyId.fromJson(Map<String, dynamic> json) {
+    return CompetencyId(
+        competencyname: json['competencyname'],
+        competencyid: json['competencyid']);
+  }
+}
 
 
 Future<List<Competencies>> fetchCompetencies(http.Client client,int i,String s) async {
