@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firstskillpro/screens/login/login_controller.dart';
+import 'my_globals.dart' as globals;
 
 Future<Role> fetchRole(String email) async {
 
@@ -159,10 +160,10 @@ class _MyAppState extends State<DetailWidget> {
                                     );
                                   } else if (snapshot.hasData) {
                                     // Extracting data from snapshot object
-                                    tmp = snapshot.data!.speciality;
+                                    globals.tmp = snapshot.data!.speciality;
                                     return Center(
                                       child: Text(
-                                        'Role : $tmp',
+                                        'Role : ${globals.tmp}',
                                         style: poppins,
                                       ),
                                     );
