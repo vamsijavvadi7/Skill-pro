@@ -30,26 +30,8 @@ class _FacultyDashBoardState extends State<FacultyDashBoard> {
       ),
 
       body: Center(
-        child: FutureBuilder<List<Competencies>>(
-          future: fetchCompetencies(http.Client(),0,""),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Error'),
-              );
-            } else if (snapshot.hasData) {
-              return CompetenciesList();
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.blue,
-                  color: Colors.white,
-                ),
-              );
-            }
-          },
-        ),
-      ),
+        child: CompetenciesList(),
+        )
      );
   }
 }
