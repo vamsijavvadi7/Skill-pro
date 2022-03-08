@@ -10,11 +10,17 @@ import 'package:firstskillpro/screens/faculty/dashboard/get_details.dart';
 import '../../../styling.dart';
 import '../../login/login_controller.dart';
 import 'package:get/get.dart';
-// import 'dart:async';
-// import 'dart:convert';
-// import 'dart:html';
 import 'package:firstskillpro/screens/faculty/dashboard/competencydata.dart';
 import 'package:firstskillpro/styling.dart';
+import 'my_globals.dart' as globals;
+
+Future fetchIds()  async{
+  final response = await http.get(Uri.parse(
+      'https://api421.herokuapp.com/fdashboard/competencydetails/${globals.tmp}'));
+  final parsed = jsonDecode(response.body).cast<String, dynamic>();
+  return parsed;
+}
+
 
 
 Future<List<Competencies>> fetchCompetencies(http.Client client,int i,String s) async {
@@ -32,12 +38,23 @@ Future<CompetenciesDataGridSource> getCompetenciesGridSource(int i,String s) asy
   return CompetenciesDataGridSource(competencieslist);
 }
 
-var id = [4,14,24,34,44,84,94,104,114,124,134,4,24,34];
-class CompetenciesList extends StatelessWidget {
+var id = [4,14,24,34,44];
+class CompetenciesList extends StatefulWidget {
 
   TextEditingController textFieldController = TextEditingController();
 
   CompetenciesList({Key? key}) : super(key: key);
+  @override
+
+  _MyAppState createState() => _MyAppState();
+}
+class _MyAppState extends State<CompetenciesList> {
+
+  @override
+  void initState(){
+    fetchIds();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -52,20 +69,20 @@ class CompetenciesList extends StatelessWidget {
               color: Colors.black,
             ),
             Expanded(
-              child: ListView(
-                children: <Widget>[
-                  for(int i=0;i<id.length;i++)
-                    ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => Extra(key:ObjectKey("extraScreen"),i:id[i],s:'${tmp}')));
-                        },
-                        child: Text('Competency ${id[i]}',
-                            style: GoogleFonts.poppins(color: Colors.white))),
-                ],
-            )),
+                child: ListView(
+                  children: <Widget>[
+                    for(int i=0;i<id.length;i++)
+                      ElevatedButton(
+                          onPressed: (){
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => Extra(key:ObjectKey("extraScreen"),i:id[i],s:globals.tmp)));
+                          },
+                          child: Text('Competency ${id[i]}',
+                              style: GoogleFonts.poppins(color: Colors.white))),
+                  ],
+                )),
           ],
         ),
       ),
-      );
+    );
   }
 }
