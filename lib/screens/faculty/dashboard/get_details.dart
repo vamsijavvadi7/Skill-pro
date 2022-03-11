@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firstskillpro/screens/faculty/dashboard/competencies.dart';
+import 'package:firstskillpro/screens/faculty/dashboard/id.dart';
 import 'package:firstskillpro/styling.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -11,15 +13,10 @@ Future<Role> fetchRole(String email) async {
 
   final response = await http
       .get(Uri.parse('https://api421.herokuapp.com/fdashboard/details/${email}'));
-
   if (response.statusCode == 200) {
-
     return Role.fromJson(json.decode(response.body));
-
   } else {
-
     throw Exception('Failed to load album');
-
   }
 }
 
@@ -39,6 +36,21 @@ class Role {
 
   }
 }
+
+final List<int> ids =[];
+
+Future fetchIds(String s)  async{
+  final response = await http.get(Uri.parse(
+      'https://api421.herokuapp.com/fdashboard/competencydetails/${s}'));
+  final parsed = json.decode(response.body) as List;
+  for(int i=0;i<parsed.length;i++){
+    ids.add(parsed[i]['competencyid']);
+  }
+  print(s+"AfterAssignment");
+  print(ids);
+  return json.decode(response.body);
+}
+
 
 class DetailWidget extends StatefulWidget {
 
@@ -161,6 +173,14 @@ class _MyAppState extends State<DetailWidget> {
                                   } else if (snapshot.hasData) {
                                     // Extracting data from snapshot object
                                     globals.tmp = snapshot.data!.speciality;
+                                    // setState(() {
+                                    print(globals.tmp+"BeforeAssignment");
+
+                                      fetchIds(globals.tmp);
+                                    // });
+                                    // Future.delayed(Duration.zero, () async {
+                                    //   fetchIds(globals.tmp);
+                                    // });
                                     return Center(
                                       child: Text(
                                         'Role : ${globals.tmp}',
