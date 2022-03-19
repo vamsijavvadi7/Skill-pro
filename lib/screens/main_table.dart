@@ -35,7 +35,6 @@ Future<CompetencyTableDetails?> sendData(String opnum) async{
       },
       body: {"opnum":opnum,"mail":"jyothiadabala321@gmail.com"});
   var data = response.body;
-  print("Plss");
   print(data);
 
   if(response.statusCode == 201){
@@ -104,51 +103,3 @@ class _MainTableState extends State<CompetencyDetailsTable> {
   }
 }
 
-
-
-
-
-        // body: Column(
-        //     children: <Widget>[
-        //       Expanded(
-        //         child: SingleChildScrollView(
-        //           padding: EdgeInsets.fromLTRB(0.0, 10, 0.0, 60.0),
-        //           scrollDirection: Axis.horizontal,
-        //           child: SingleChildScrollView(
-        //             scrollDirection: Axis.vertical,
-        //             child: DataTable(
-        //                 headingRowColor: MaterialStateProperty.all(Colors.indigoAccent),
-        //                 columns: [
-        //                   DataColumn(label: Text('PatientOp',style: GoogleFonts.poppins(color: Colors.white))),
-        //                   DataColumn(label: Text('Date',style: GoogleFonts.poppins(color: Colors.white))),
-        //                   DataColumn(label: Text('Time',style: GoogleFonts.poppins(color: Colors.white))),
-        //                   DataColumn(label: Text('Self    ->',style: GoogleFonts.poppins(color: Colors.white))),
-        //                   DataColumn(label: Text('Faculty',style: GoogleFonts.poppins(color: Colors.white))),
-        //                   DataColumn(label: Text('Delete',style: GoogleFonts.poppins(color: Colors.white))),
-        //                 ], rows: _rowList),
-        //           ),
-        //         ),
-        //       ),
-        //       Row(
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           children: <Widget>[
-        //             Expanded(
-        //               child: TextFormField(
-        //                 controller: OpController,
-        //                 decoration: InputDecoration(
-        //                   border: OutlineInputBorder(),
-        //                 ),
-        //               ),
-        //             ),
-        //             SizedBox(width: 20,),
-        //             FloatingActionButton.extended(
-        //               onPressed: (){
-        //                 _addRow;
-        //                 },
-        //               label: Text('Add Row'),
-        //               backgroundColor: primaryColor,
-        //             )]),
-        //     ])
-//         );
-//   }
-// }
