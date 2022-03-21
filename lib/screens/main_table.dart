@@ -33,7 +33,7 @@ Future<CompetencyTableDetails?> sendData(String opnum) async{
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
-      body: {"opnum":opnum,"mail":"jyothiadabala321@gmail.com"});
+      body:jsonEncode({"opnum":opnum,"mail":"jyothiadabala321@gmail.com"}));
   var data = response.body;
   print(data);
 
